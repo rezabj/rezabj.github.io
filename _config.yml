@@ -20,7 +20,7 @@
 
 title: Rezab.EU
 author: Jan Řežab
-email: honza@rezab.eu
+# email: honza@rezab.eu
 description: >- # this means to ignore newlines until "baseurl:"
   TODO
 baseurl: "" # the subpath of your site, e.g. /blog
@@ -28,6 +28,7 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: HonzaRezab
 github_username:  rezabj
 facebook_username: jrezab
+linkedin_username: honzarezab
 
 # Build settings
 # theme: minima
