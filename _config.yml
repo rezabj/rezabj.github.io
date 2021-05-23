@@ -38,7 +38,7 @@ plugins:
   - jekyll-feed
   - jekyll-remote-theme
   - jekyll-include-cache
-  - retlab
+  # - retlab
   - jekyll-redirect-from
 
 # Exclude from processing.
