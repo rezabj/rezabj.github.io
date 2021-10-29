@@ -109,4 +109,4 @@ Get-AzureADUser
 ```
 
 # Závěr
-Je to jednoduchý a zároveň bezpečnější, než nechávat uživatele jméno a heslo uložené někde ve skriptu, kde si to může přečíst každý kolemjdoucí. :-)
+Je to jednoduché a zároveň bezpečnější, než nechávat uživatelské jméno a heslo uložené někde ve skriptu, kde si to může přečíst každý kolemjdoucí. :-)
