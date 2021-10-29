@@ -20,7 +20,7 @@ $Cert | Export-Certificate -FilePath cert.cer
 ```
 Soubor cert.pfx si někam bezpečně uložte a ze serveru ho vymažte. Soubor cert.cer budeme potřebovat při registraci aplikace v Azure AD.
 
-K tomu, abychom se tímto certifikátem mohli začít přihlašovat, je potřeba nakonfigurovat Azure AD registrovanou aplikaci. Postupně si ukážeme Graph API, Exchange i Azure Active Directory.
+Abychom se tímto certifikátem mohli začít přihlašovat, je potřeba nakonfigurovat Azure AD registrovanou aplikaci. Postupně si ukážeme přihlášení ke Graph API, Exchange i Azure Active Directory.
 
 # Graph API
 Přejděte do [App registrations](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RegisteredApps) a vytvořte novou aplikaci.
@@ -78,13 +78,13 @@ A nahraďte ho
 ```
 ![EXO App Manifest](/assets/img/20211028-certAAD/EXO-App-Manifest.png)
 
-Jakmile manifest uložíme, tak se nám v sekci API permissions objeví právo Exchange.ManageAsApp. Nezapomeňte potvrdit souhlas spárvce.
+Jakmile manifest uložíme, tak se nám v sekci API permissions objeví právo Exchange.ManageAsApp. Nezapomeňte udělit souhlas spárvce.
 ![EXO App API Permission](/assets/img/20211028-certAAD/EXO-App-APIPermission.png)
 
-Nyní musíme této aplikaci (service principal) ještě přidat roli Exchange Administrator v [Azure AD](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RolesAndAdministrators).
+Nyní musíme této aplikaci (service principal) ještě přidat roli Exchange Administrator. Přejděte v [Azure AD](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RolesAndAdministrators) do Roles and administrators a vyhledejte roli Exchange administrator a přidejte nově vytvořenou aplikaci (service principal).
 ![EXO App Exch Role assign](/assets/img/20211028-certAAD/EXO-APP-ExchPermission.png)
 
-Přihlášení provedeme příkazem
+Postup přihlášení ve skriptu bude následující:
 ```powershell
 $ClientId   = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
 $TenantName = "OrgName.onmicrosoft.com"
@@ -95,7 +95,7 @@ Get-Mailbox
 ```
 
 # Azure Active Directory
-Pro Azure Active Directory je to ještě jednodušší. Stačí nám zaregistrovat aplikaci jako v předchozích dvou případech. Nemusíme ani upravovat manifest. Stačí aplikaci (service principal) přiřadit odpovídající práva. Například Global reader v [AzureAD](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RolesAndAdministrators).
+Pro Azure Active Directory je to ještě jednodušší. Stačí nám zaregistrovat aplikaci jako v předchozích dvou případech. Nemusíme ani upravovat manifest, ani přiřazovat práva v API permissions. Stačí aplikaci (service principal) přiřadit odpovídající práva. Například Global reader. V [AzureAD](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade/RolesAndAdministrators) v sekci Roles and administrators vyhledejte příslušnou roli a přidělte práva.
 
 Poté již můžeme použít postup:
 
