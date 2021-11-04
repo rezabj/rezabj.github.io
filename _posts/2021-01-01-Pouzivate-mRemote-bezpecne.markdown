@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Používáte mRemote bezpečně?
+description: mRemote je bezvadný nástroj pro administátory. Je ale potřaba ho zabezpečit.
 categories: Tools
 ---
 Pokud používáte mRemoteNG a ukládáte v tomto programu hesla (ano, ukládat hesla je z principu špatně), měli byste myslet na to, že v defaultním nastavení jsou uložená hesle velmi jednoduše přístupná.

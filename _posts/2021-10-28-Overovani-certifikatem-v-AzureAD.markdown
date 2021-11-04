@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Ověřování certifikátem v Azure Active Directory
+description: Nenechávejte hesla uložená ve skriptech. Použijte ověřávní certifikátem.
 categories: AzureAD
 ---
 Každý IT administrátor řeší automatizaci. V prostředí Windows, Microsoft 365, Azure AD hodně často padne volba na skripty napsané v PowerShellu. Ty se většinou spouští na nějakém serveru firmy a bohužel dost často jsou ve skriptech uloženy přístupové údaje. Někdy i k účtům s hodně vysokým oprávněním. Nezřídka vidím u zákazníků, jak jejich skript obsahuje přístupové údaje globálního administrátora.

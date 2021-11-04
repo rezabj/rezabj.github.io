@@ -3,10 +3,6 @@ layout: default
 ---
 
 <div class="home">
-  {%- if page.title -%}
-    <h1 class="page-heading">{{ page.title }}</h1>
-  {%- endif -%}
-
   {{ content }}
 
   {%- if site.posts.size > 0 -%}
@@ -14,8 +10,25 @@ layout: default
     <ul class="post-list">
       {%- for post in site.posts -%}
       <li>
-        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        <span class="post-meta">{{ post.date | date: date_format }}</span>
+        <span class="post-meta">
+        {% assign m = post.date | date: "%-m" %}
+        {{ post.date | date: "%-d." }}
+        {% case m %}
+        {% when '1' %}Ledna
+        {% when '2' %}Února
+        {% when '3' %}Března
+        {% when '4' %}Dubna
+        {% when '5' %}Května
+        {% when '6' %}Června
+        {% when '7' %}Července
+        {% when '8' %}Srpna
+        {% when '9' %}Září
+        {% when '10' %}Října
+        {% when '11' %}Listopadu
+        {% when '12' %}Prosince
+        {% endcase %}
+        {{ post.date | date: "%Y" }}
+        </span>
         <h3>
           <a class="post-link" href="{{ post.url | relative_url }}">
             {{ post.title | escape }}

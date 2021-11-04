@@ -7,8 +7,23 @@ layout: default
     <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
     <p class="post-meta">
       <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
-        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        {{ page.date | date: date_format }}
+        {% assign m = page.date | date: "%-m" %}
+        {{ page.date | date: "%-d." }}
+        {% case m %}
+        {% when '1' %}Ledena
+        {% when '2' %}Února
+        {% when '3' %}Března
+        {% when '4' %}Dubna
+        {% when '5' %}Května
+        {% when '6' %}Června
+        {% when '7' %}Července
+        {% when '8' %}Srpna
+        {% when '9' %}Září
+        {% when '10' %}Října
+        {% when '11' %}Listopadu
+        {% when '12' %}Prosince
+        {% endcase %}
+        {{ page.date | date: "%Y" }}
       </time>
       {%- if page.author -%}
         • <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span class="p-author h-card" itemprop="name">{{ page.author }}</span></span>
