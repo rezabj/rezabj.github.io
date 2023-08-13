@@ -86,19 +86,9 @@ Now, we have need to prepare script. I wrote this one.
 $certThumbprint = "<Certificate thumbprint>"
 $certValue = Import-Clixml -Path .\cert.xml
 
-$RegKey = "HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\FVE"
-if (!(Test-Path $RegKey)) {
-    New-Item -Path $RegKey
-}
-
-$RegKey = "HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\FVE\Certificates"
-if (!(Test-Path $RegKey)) {
-    New-Item -Path $RegKey
-}
-
 $RegKey = "HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\FVE\Certificates\" + $certThumbprint
 if (!(Test-Path $RegKey)) {
-    New-Item -Path $RegKey
+    New-Item -Path $RegKey -Force
 }
 
 New-ItemProperty -Path $RegKey -Name "Blob" -PropertyType Binary -Value $certValue -Force
