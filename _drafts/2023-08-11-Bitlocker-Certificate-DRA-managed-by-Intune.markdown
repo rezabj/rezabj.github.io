@@ -16,6 +16,15 @@ To create a certificate with the necessary attributes, we will need a certificat
 
 Now we need to create a new certificate template.
 
+```powershell
+$Cert = New-SelfSignedCertificate -Type Custom -Subject "CN=BitLockerDRA" -TextExtension @("2.5.29.37={text}1.3.6.1.4.1.311.21.6,1.3.6.1.4.311.67.1.1,1.3.6.1.4.1.311.67.1.2,2.23.133.8.3") -CertStoreLocation "Cert:\LocalMachine\My\" -HashAlgorithm sha256 -KeySpec Signature
+$CertPassword = ConvertTo-SecureString -String "MyPassword" -Force -AsPlainText
+$thumbprint = $Cert.Thumbprint
+$Cert | Export-PfxCertificate -FilePath .\cert.pfx -Password $CertPassword
+Get-ChildItem -Path .\cert.pfx | Import-PfxCertificate -CertStoreLocation "Cert:\LocalMachine\My\" -Password $CertPassword 
+$Cert | Export-Certificate -FilePath cert.cer
+```
+
 ## Create certificate template [:link:](#Create-Certificate-template)
 1. Duplicate template "Key Recovery Agent" \
  ![Duplicate template](/assets/img/20230811-BitLockerDRA/1_DuplicateTemplate.png "Duplicate certificate template Key Recovery Agent")
@@ -67,13 +76,13 @@ HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\FVE\Certificates\<Certifica
 On test computer open Local Security Policy and import the certificate to the Bitlocker Drive Encryption.
 ![Import Certificate to Local Security Policy](/assets/img/20230811-BitLockerDRA/16_ImportToSecurityPolicies.png "Import Certificate to Local Security Policy")
 This create certificate in registry. You need to export it to xml file.
-```Powershell
+```powershell
 $Blob = Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\FVE\<Certificate thumbprint>" -Name "Blob"
 $Blob.Blob | Export-Clixml -Path .\cert.xml
 ```
 
 Now, we have need to prepare script. I wrote this one.
-```Powershell
+```powershell
 $certThumbprint = "<Certificate thumbprint>"
 $certValue = Import-Clixml -Path .\cert.xml
 
