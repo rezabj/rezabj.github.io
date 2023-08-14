@@ -12,18 +12,19 @@ So how do we avoid the situation where we remove the computer account from Azure
 Certificate-based BitLocker Data Recovery Agent (DRA) will help. The following describes how to implement BitLocker Certificate DRA using Microsoft Intune.
 
 # **Prepare certificate** [:link:](#Prepare-certificate)
-To create a certificate with the necessary attributes, we will need a certificate authority. However, this article does not describe the ADCS implementation itself. There are many articles on the Internet on how to implement ADCS.
+You can choose between a self-signed certificate and a certificate signed by a certificate authority.
 
-Now we need to create a new certificate template.
-
+You can create a self-signed certificate simply by using PowerShell:
 ```powershell
-$Cert = New-SelfSignedCertificate -Type Custom -Subject "CN=BitLockerDRA" -TextExtension @("2.5.29.37={text}1.3.6.1.4.1.311.21.6,1.3.6.1.4.311.67.1.1,1.3.6.1.4.1.311.67.1.2,2.23.133.8.3") -CertStoreLocation "Cert:\LocalMachine\My\" -HashAlgorithm sha256 -KeySpec Signature
+$Cert = New-SelfSignedCertificate -Type Custom -Subject "CN=Bitlocker DRA" -TextExtension @("2.5.29.37={text}2.23.133.8.3,1.3.6.1.4.1.311.21.6,1.3.6.1.4.1.311.67.1.1,1.3.6.1.4.1.311.67.1.2") -CertStoreLocation "Cert:\CurrentUser\My\" -HashAlgorithm sha512 -KeySpec KeyExchange
 $CertPassword = ConvertTo-SecureString -String "MyPassword" -Force -AsPlainText
 $thumbprint = $Cert.Thumbprint
 $Cert | Export-PfxCertificate -FilePath .\cert.pfx -Password $CertPassword
 Get-ChildItem -Path .\cert.pfx | Import-PfxCertificate -CertStoreLocation "Cert:\LocalMachine\My\" -Password $CertPassword 
 $Cert | Export-Certificate -FilePath cert.cer
 ```
+
+To create a CA-signed certificate, you need a CA. However, this article does not describe the implementation of ADCS as there are many articles on the Internet that describe this.
 
 ## Create certificate template [:link:](#Create-Certificate-template)
 1. Duplicate template "Key Recovery Agent" \
@@ -61,32 +62,31 @@ $Cert | Export-Certificate -FilePath cert.cer
   ![Request new certificate](/assets/img/20230811-BitLockerDRA/12_Request_new_cert.png "Request new certificate") 
 
 8. Export the certificate \
-  :warning: **Warning:** This certificate will be highly sensitive because you will be able to decrypt all Bitlocker volumes in your organisation by this cert. So you should keep it secret.
+  :warning: **Warning:** This certificate is very sensitive as it will allow you to unlock/decrypt all Bitlocker volumes in your organization. Therefore, you should keep it on a secure device (perhaps some kind of hardware token). 
   ![Export the certificate](/assets/img/20230811-BitLockerDRA/13_Export_Cert.png "Export the certificate")
   ![Export the certificate](/assets/img/20230811-BitLockerDRA/14_Export_Cert.png "Export the certificate")
   ![Export the certificate](/assets/img/20230811-BitLockerDRA/15_Export_Cert.png "Export the certificate") \
   Exported certificate will be used in next chapter.
 
 # **Prepare PowerShell script for import certificate to computers** [:link:](#Prepare-PowerShell-script-for-import-certificate-to-computers)
-Normaly, when the computer is part of on-premise Active Directory, we use GPO for distributing certificate. But when the computer is Azure AD Joined and is managed by Intune, then we have to import certificate directly to registry by a PowerShell script.
-
+Normaly, when the computer is part of on-premise Active Directory, you use GPO for distributing the certificate. But when the computer is Azure AD Joined and is managed by Intune, then you have to import certificate directly to registry by a PowerShell script.
 ```
 HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\FVE\Certificates\<Certificate Thumbprint>
 ```
 On test computer open Local Security Policy and import the certificate to the Bitlocker Drive Encryption.
 ![Import Certificate to Local Security Policy](/assets/img/20230811-BitLockerDRA/16_ImportToSecurityPolicies.png "Import Certificate to Local Security Policy")
-This create certificate in registry. You need to export it to xml file.
+The local security policy stores the certificate in the registry. The created registry key needs to be exported to an xml file. This file is then used for importing on other computers.
 ```powershell
 $Blob = Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\FVE\<Certificate thumbprint>" -Name "Blob"
 $Blob.Blob | Export-Clixml -Path .\cert.xml
 ```
 
-Now, we have need to prepare script. I wrote this one.
+Here is example of simple script. Save it as "ImportCert.ps1" and change the $certThumprint" variable.
 ```powershell
 $certThumbprint = "<Certificate thumbprint>"
 $certValue = Import-Clixml -Path .\cert.xml
 
-$RegKey = "HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\FVE\Certificates\" + $certThumbprint
+$RegKey = "HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\FVE\Certificates\" + $certThumbprint.
 if (!(Test-Path $RegKey)) {
     New-Item -Path $RegKey -Force
 }
@@ -97,8 +97,44 @@ New-ItemProperty -Path $RegKey -Name "Blob" -PropertyType Binary -Value $certVal
 # **Prepare Intune Configuration profiles** [:link:](#Prepare-Intune-Configuration-profiles)
 
 ## Win32 app with script [:link:](#Win32-app-with-script)
-
+By [Microsoft Win32 Content Prep Tool](https://github.com/Microsoft/Microsoft-Win32-Content-Prep-Tool){:target="_blank"} you can prepare script package.
+Save script and xml file to a folder and run
+```
+.\IntuneWinAppUtil.exe -c .\Script -s ImportCert.ps1 -o .\Output
+```
 ![Prepare Win32 app](/assets/img/20230811-BitLockerDRA/17_Win32App.png "Prepare Win32 app")
 
-## Create Win32 app in Intune
+Now, you can create new Win32App in Intune.
 
+Install command:
+```powershell
+%windir%\SysNative\WindowsPowershell\v1.0\PowerShell.exe -ExecutionPolicy Bypass -File ImportCert.ps1
+```
+![Install command](/assets/img/20230811-BitLockerDRA/18_Win32App_InstallCommand.png "Install command")
+
+Detection rule:
+```
+HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\SystemCertificates\FVE\Certificates\<Certificate thumbprint>
+```
+![Detection rule](/assets/img/20230811-BitLockerDRA/19_Win32App_DetectionRule.png "Detection rule")
+
+Deploy created app to computers.
+
+## Bitlocker configuration profiles
+You have to deploy two Bitlocker cofiguration profiles. One which setup BitLocker and second which setup BitLocker identifier.
+The first one can looks like this:
+![BitLocker settings](/assets/img/20230811-BitLockerDRA/20_BitLocker_settings.png "BitLocker settings") 
+:warning: **Warning:** The **"Certificate-based data recovery agent"** parameter has to be set to **"Not configured"**.
+
+BitLocker identifier can be setup by "Settings catalog" policy and it is a string. For example name of your company.
+![BitLocker identifier](/assets/img/20230811-BitLockerDRA/21_BitLocker_identifiers.png "BitLocker identifier")
+![BitLocker identifier](/assets/img/20230811-BitLockerDRA/22_BitLocker_identifiers.png "BitLocker identifier")
+
+If everything works as expected, we can check the BitLocker settings on the test computer.
+![BitLocker protectors](/assets/img/20230811-BitLockerDRA/23_BitLocker_protectors.png "BitLocker protectors")
+
+And when you connect the disks to the computer where is the certificate with private key, you can unlock volume by 
+```powershell
+manage-bde.exe -unlock <Driver letter> -cert -ct <certificate thumbprint>
+```
+![BitLocker unlock](/assets/img/20230811-BitLockerDRA/24_BitLocker_unlock.png "BitLocker unlock")
