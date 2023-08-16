@@ -16,3 +16,4 @@ Jedná se o PowerShell modul, který vám umožňuje spravovat prostředí Micro
 - Porovnání změn konfigurace v čase.
 
 Určitě si kladete otázku, jestli se vám testovací prostředí od produkce neliší.
+.
