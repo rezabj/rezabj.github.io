@@ -20,7 +20,7 @@ $Cert = New-SelfSignedCertificate -Type Custom -Subject "CN=Bitlocker DRA" -Text
 $CertPassword = ConvertTo-SecureString -String "MyPassword" -Force -AsPlainText
 $thumbprint = $Cert.Thumbprint
 $Cert | Export-PfxCertificate -FilePath .\cert.pfx -Password $CertPassword
-Get-ChildItem -Path .\cert.pfx | Import-PfxCertificate -CertStoreLocation "Cert:\LocalMachine\My\" -Password $CertPassword 
+Get-ChildItem -Path .\cert.pfx | Import-PfxCertificate -CertStoreLocation "Cert:\CurrentUser\My\" -Password $CertPassword 
 $Cert | Export-Certificate -FilePath cert.cer
 ```
 
