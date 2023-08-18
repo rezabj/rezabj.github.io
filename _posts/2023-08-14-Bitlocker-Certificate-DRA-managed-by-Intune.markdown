@@ -77,7 +77,7 @@ On test computer open Local Security Policy and import the certificate to the Bi
 ![Import Certificate to Local Security Policy](/assets/img/20230811-BitLockerDRA/16_ImportToSecurityPolicies.png "Import Certificate to Local Security Policy")
 The local security policy stores the certificate in the registry. The created registry key needs to be exported to an xml file. This file is then used for importing on other computers.
 ```powershell
-$Blob = Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\FVE\<Certificate thumbprint>" -Name "Blob"
+$Blob = Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\FVE\Certificates\<Certificate thumbprint>" -Name "Blob"
 $Blob.Blob | Export-Clixml -Path .\cert.xml
 ```
 
