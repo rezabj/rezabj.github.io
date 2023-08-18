@@ -86,7 +86,7 @@ Here is example of simple script. Save it as "ImportCert.ps1" and change the $ce
 $certThumbprint = "<Certificate thumbprint>"
 $certValue = Import-Clixml -Path .\cert.xml
 
-$RegKey = "HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\FVE\Certificates\" + $certThumbprint.
+$RegKey = "HKLM:\SOFTWARE\Policies\Microsoft\SystemCertificates\FVE\Certificates\" + $certThumbprint
 if (!(Test-Path $RegKey)) {
     New-Item -Path $RegKey -Force
 }
