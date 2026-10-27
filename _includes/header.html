@@ -1,32 +1,30 @@
-<header class="site-header" role="banner">
+<header class="wp-block-template-part">
+<div class="wp-block-cover alignfull" style="min-height:370px;aspect-ratio:unset;"><span aria-hidden="true" class="wp-block-cover__background has-foreground-background-color has-background-dim"></span><img fetchpriority="high" decoding="async" width="1920" height="865" class="wp-block-cover__image-background wp-image-5" alt="Site header image" src="/assets/images/2023/08/20230820_141508.jpg" style="object-position:45% 24%" srcset="/assets/images/2023/08/20230820_141508.jpg 1920w, /assets/images/2023/08/20230820_141508-300x135.jpg 300w, /assets/images/2023/08/20230820_141508-1024x461.jpg 1024w, /assets/images/2023/08/20230820_141508-768x346.jpg 768w, /assets/images/2023/08/20230820_141508-1536x692.jpg 1536w" sizes="(max-width: 1000px) 100vw, 1000px"><div class="wp-block-cover__inner-container is-layout-flow wp-block-cover-is-layout-flow">
+<div class="wp-block-group alignfull has-background-color has-text-color has-link-color wp-elements-2facb895a22b56d5f0031be6b11aabfa is-layout-constrained wp-block-group-is-layout-constrained" style="padding-top:0px;padding-bottom:0px"><header class="alignwide wp-block-template-part">
+<div class="wp-block-group is-layout-constrained wp-block-group-is-layout-constrained">
+<div class="wp-block-group alignwide is-content-justification-space-between is-layout-flex wp-container-core-group-is-layout-d256613d wp-block-group-is-layout-flex" style="padding-top:var(--wp--custom--spacing--small, 1.25rem);padding-bottom:var(--wp--custom--spacing--large, 8rem)">
+<div class="wp-block-group is-layout-flex wp-block-group-is-layout-flex"><div class="wp-block-site-logo"><a href="/" class="custom-logo-link" rel="home" aria-current="page"><img width="195" height="66" src="/assets/images/2023/08/logo.png" class="custom-logo" alt="Logo" decoding="async" srcset="/assets/images/2023/08/logo.png 1400w, /assets/images/2023/08/logo-300x103.png 300w, /assets/images/2023/08/logo-1024x351.png 1024w, /assets/images/2023/08/logo-768x263.png 768w" sizes="(max-width: 1000px) 100vw, 1000px"></a></div></div>
 
-  <div class="wrapper">
-    {%- assign default_paths = site.pages | map: "path" -%}
-    {%- assign page_paths = site.header_pages | default: default_paths -%}
-    <a class="site-title" rel="author" href="{{ "/" | relative_url }}"><img src="/assets/logo2.svg" width="250px" height="100px" alt="logo" /></a>
 
-    {%- if page_paths -%}
-      <nav class="site-nav">
-        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
-        <label for="nav-trigger">
-          <span class="menu-icon">
-            <svg viewBox="0 0 18 15" width="18px" height="15px">
-              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
-            </svg>
-          </span>
-        </label>
+<nav class="is-responsive items-justified-right wp-block-navigation is-content-justification-right is-layout-flex wp-container-core-navigation-is-layout-de66bf79 wp-block-navigation-is-layout-flex" aria-label="Header navigation"><button aria-haspopup="dialog" aria-label="Open menu" class="wp-block-navigation__responsive-container-open"><svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7.5h16v1.5H4z" /><path d="M4 15h16v1.5H4z" /></svg></button>
+				<div class="wp-block-navigation__responsive-container" id="modal-2" tabindex="-1">
+					<div class="wp-block-navigation__responsive-close" tabindex="-1">
+						<div class="wp-block-navigation__responsive-dialog">
+							<button aria-label="Close menu" class="wp-block-navigation__responsive-container-close"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="m13.06 12 6.47-6.47-1.06-1.06L12 10.94 5.53 4.47 4.47 5.53 10.94 12l-6.47 6.47 1.06 1.06L12 13.06l6.47 6.47 1.06-1.06L13.06 12Z" /></svg></button>
+							<div class="wp-block-navigation__responsive-container-content" id="modal-2-content">
+								<form role="search" method="get" action="/" class="wp-block-search__button-only wp-block-search__searchfield-hidden wp-block-search__icon-button wp-block-search"><label class="wp-block-search__label screen-reader-text" for="wp-block-search__input-1">Search</label><div class="wp-block-search__inside-wrapper"><input aria-hidden="true" class="wp-block-search__input" id="wp-block-search__input-1" placeholder="" value="" type="search" name="s" required><button aria-expanded="false" class="wp-block-search__button has-icon wp-element-button"><svg class="search-icon" viewBox="0 0 24 24" width="24" height="24">
+					<path d="M13 5c-3.3 0-6 2.7-6 6 0 1.4.5 2.7 1.3 3.7l-3.8 3.8 1.1 1.1 3.8-3.8c1 .8 2.3 1.3 3.7 1.3 3.3 0 6-2.7 6-6S16.3 5 13 5zm0 10.5c-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5 4.5 2 4.5 4.5-2 4.5-4.5 4.5z" />
+				</svg></button></div></form><ul class="wp-block-navigation__container is-responsive items-justified-right wp-block-navigation"><ul class="wp-block-page-list"><li class="wp-block-pages-list__item wp-block-navigation-item open-on-hover-click"><a class="wp-block-pages-list__item__link wp-block-navigation-item__content" href="/about/">About</a></li></ul></ul>
 
-        <div class="trigger">
-          {%- for path in page_paths -%}
-            {%- assign my_page = site.pages | where: "path", path | first -%}
-            {%- if my_page.title -%}
-            {%- if my_page.layout != "home" -%}
-            <a class="page-link" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
-            {%- endif -%}
-            {%- endif -%}
-          {%- endfor -%}
-        </div>
-      </nav>
-    {%- endif -%}
-  </div>
+							</div>
+						</div>
+					</div>
+				</div></nav></div>
+</div>
+</header>
+
+
+{% if page.layout == "home" or page.layout == "archive" %}<div style="height:125px" aria-hidden="true" class="wp-block-spacer"></div>{% else %}<h1 class="alignwide wp-block-post-title has-x-large-font-size">{{ page.title | escape }}</h1>{% endif %}
+</div>
+</div></div>
 </header>

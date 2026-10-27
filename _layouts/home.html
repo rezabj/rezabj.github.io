@@ -1,45 +1,6 @@
 ---
 layout: default
 ---
-
-<div class="home">
-  {{ content }}
-
-  {%- if site.posts.size > 0 -%}
-    <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
-    <ul class="post-list">
-      {%- for post in site.posts -%}
-      <li>
-        <span class="post-meta">
-        {% assign m = post.date | date: "%-m" %}
-        {{ post.date | date: "%-d." }}
-        {% case m %}
-        {% when '1' %}Ledna
-        {% when '2' %}Února
-        {% when '3' %}Března
-        {% when '4' %}Dubna
-        {% when '5' %}Května
-        {% when '6' %}Června
-        {% when '7' %}Července
-        {% when '8' %}Srpna
-        {% when '9' %}Září
-        {% when '10' %}Října
-        {% when '11' %}Listopadu
-        {% when '12' %}Prosince
-        {% endcase %}
-        {{ post.date | date: "%Y" }}
-        </span>
-        <h3>
-          <a class="post-link" href="{{ post.url | relative_url }}">
-            {{ post.title | escape }}
-          </a>
-        </h3>
-        {%- if site.show_excerpts -%}
-          {{ post.excerpt }}
-        {%- endif -%}
-      </li>
-      {%- endfor -%}
-    </ul>
-  {%- endif -%}
-
-</div>
+<main id="wp--skip-link--target" class="wp-block-query is-layout-constrained wp-block-query-is-layout-constrained">
+  {% include post-list.html posts=site.posts %}
+</main>

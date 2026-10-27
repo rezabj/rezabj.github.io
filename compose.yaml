@@ -1,0 +1,21 @@
+services:
+  web:
+    build:
+      context: .
+      target: production
+    ports:
+      - "127.0.0.1:8080:80"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+  jekyll:
+    profiles: [dev]
+    build:
+      context: .
+      target: development
+    volumes:
+      - .:/site
+    ports:
+      - "127.0.0.1:4000:4000"

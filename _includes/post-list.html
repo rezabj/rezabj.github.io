@@ -1,0 +1,18 @@
+<ul class="alignwide wp-block-post-template is-layout-flow wp-block-post-template-is-layout-flow">
+{% for post in include.posts %}
+  <li class="wp-block-post">
+    <div class="wp-block-group is-layout-constrained wp-block-group-is-layout-constrained">
+      <h2 class="alignwide wp-block-post-title post-card-title"><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h2>
+      {% if post.image %}<figure class="alignwide wp-block-post-featured-image"><a href="{{ post.url | relative_url }}"><img src="{{ post.image | relative_url }}" alt="{{ post.title | escape }}" loading="lazy"></a></figure>{% endif %}
+      <div class="wp-block-columns alignwide is-layout-flex wp-block-columns-is-layout-flex">
+        <div class="wp-block-column is-layout-flow" style="flex-basis:650px">
+          <div class="wp-block-post-excerpt"><p class="wp-block-post-excerpt__excerpt">{{ post.description | default: post.excerpt | strip_html | escape }}</p></div>
+          <div class="wp-block-post-date has-small-font-size" style="font-style:italic;font-weight:400"><a href="{{ post.url | relative_url }}"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%B %-d, %Y' }}</time></a></div>
+        </div>
+        <div class="wp-block-column is-layout-flow"></div>
+      </div>
+      <div style="height:112px" aria-hidden="true" class="wp-block-spacer"></div>
+    </div>
+  </li>
+{% endfor %}
+</ul>

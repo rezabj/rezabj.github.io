@@ -1,0 +1,74 @@
+[
+  {
+    "url": "/",
+    "file": "home.html"
+  },
+  {
+    "url": "/entra-id/2023/08/29/certificate-authentication-for-service-principals-in-entra-id/",
+    "file": "134.html"
+  },
+  {
+    "url": "/tools/2023/08/29/are-you-using-mremote-safely/",
+    "file": "126.html"
+  },
+  {
+    "url": "/intune/2023/08/25/deployment-of-large-windows-apps-by-microsoft-intune/",
+    "file": "92.html"
+  },
+  {
+    "url": "/intune/2023/08/14/bitlocker-certificate-dra-managed-by-intune-html/",
+    "file": "57.html"
+  },
+  {
+    "url": "/about/",
+    "file": "2.html"
+  },
+  {
+    "url": "/category/entra-id/",
+    "file": "archive-1.html"
+  },
+  {
+    "url": "/tag/azure-ad/",
+    "file": "archive-2.html"
+  },
+  {
+    "url": "/tag/entra-id/",
+    "file": "archive-3.html"
+  },
+  {
+    "url": "/tag/powershell/",
+    "file": "archive-4.html"
+  },
+  {
+    "url": "/tag/security/",
+    "file": "archive-5.html"
+  },
+  {
+    "url": "/category/tools/",
+    "file": "archive-6.html"
+  },
+  {
+    "url": "/tag/mremote/",
+    "file": "archive-7.html"
+  },
+  {
+    "url": "/tag/tools/",
+    "file": "archive-8.html"
+  },
+  {
+    "url": "/category/intune/",
+    "file": "archive-9.html"
+  },
+  {
+    "url": "/tag/intune/",
+    "file": "archive-10.html"
+  },
+  {
+    "url": "/tag/win32/",
+    "file": "archive-11.html"
+  },
+  {
+    "url": "/tag/bitlocker/",
+    "file": "archive-12.html"
+  }
+]

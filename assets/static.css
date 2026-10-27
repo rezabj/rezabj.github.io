@@ -1,0 +1,7 @@
+/* Small compatibility additions for the exported WordPress theme. */
+img { max-width: 100%; }
+pre { overflow-x: auto; }
+.wp-block-navigation__responsive-container.is-menu-open { display: flex; position: fixed; inset: 0; z-index: 100000; background: #fff; color: #000; padding: 2rem; }
+.wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__responsive-container-close { display: block; }
+.wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__responsive-container-content { display: flex; flex-direction: column; gap: 2rem; padding-top: 3rem; }
+.static-search-results { max-width: 1000px; margin: 4rem auto; padding: 0 1rem; }

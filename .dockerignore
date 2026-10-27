@@ -1,0 +1,11 @@
+.git
+.github
+_site
+.jekyll-cache
+.jekyll-metadata
+.sass-cache
+vendor
+docs
+content
+_legacy
+node_modules
