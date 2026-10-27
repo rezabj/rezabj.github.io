@@ -103,4 +103,4 @@ docker compose --profile dev run --rm jekyll ruby scripts/test-jekyll.rb
 
 Workflow `.github/workflows/pages.yml` instaluje Ruby knihovny podle `Gemfile.lock`, sestaví Jekyll, ověří výsledek a publikuje `_site/`. Pro vlastní generátor archivů je potřeba mít v **Settings → Pages → Source** nastavené **GitHub Actions**.
 
-Web se publikuje na `https://rezabj.github.io/`. RSS, sitemap a kanonické adresy používají `url` z `_config.yml`, nyní `https://rezabj.github.io`. Pro pozdější přechod na vlastní doménu změňte tuto hodnotu na `https://www.rezab.eu`, přidejte do kořene repozitáře soubor `CNAME` s hodnotou `www.rezab.eu` a nastavte doménu a HTTPS v GitHub Pages. DNS původní domény zatím zůstává beze změny.
+Web se publikuje na `https://rezab.eu/`; `https://www.rezab.eu/` se přesměrovává na tuto hlavní adresu. RSS, sitemap a kanonické adresy používají `url` z `_config.yml`, nyní `https://rezab.eu`. Vlastní doména `rezab.eu` je nastavená v GitHub Pages. Při nasazování přes GitHub Actions se soubor `CNAME` nepoužívá; rozhodující je nastavení vlastní domény v GitHub Pages a příslušné DNS záznamy.
